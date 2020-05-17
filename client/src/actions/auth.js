@@ -9,17 +9,11 @@ import {
 	LOGIN_FAIL,
 	LOGOUT,
 } from './types';
-import setAuthToken from '../utils/setAuthToken';
 
 // Load user
 export const loadUser = () => async dispatch => {
-	// set header with a token, in case there is one
-	if (localStorage.token) {
-		setAuthToken(localStorage.token);
-	}
 	try {
 		const res = await axios.get('/api/auth');
-
 		dispatch({
 			type: USER_LOADED,
 			// res.data is the user from that router
