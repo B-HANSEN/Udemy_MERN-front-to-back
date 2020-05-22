@@ -16,7 +16,7 @@ const Dashboard = ({
 }) => {
 	useEffect(() => {
 		getCurrentProfile();
-	}, []);
+	}, [getCurrentProfile]);
 
 	return loading && profile === null ? (
 		<Spinner />
@@ -25,7 +25,7 @@ const Dashboard = ({
 			<h1 className='large text-primary'>Dashboard</h1>
 			<p className='lead'>
 				{/* if user is true, show user name */}
-				<i className='fas fa-user'>Welcome {user && user.name}</i>
+				<i className='fas fa-user'> Welcome {user && user.name}</i>
 			</p>
 			{profile !== null ? (
 				<>
@@ -34,7 +34,7 @@ const Dashboard = ({
 					<Education education={profile.education} />
 					<div className='my-2'>
 						<button onClick={() => deleteAccount()} className='btn btn-danger'>
-							<i className='fas fa-user-minus'></i>Delete My Account
+							<i className='fas fa-user'></i> Delete My Account
 						</button>
 					</div>
 				</>

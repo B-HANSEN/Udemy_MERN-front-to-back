@@ -45,7 +45,7 @@ const EditProfile = ({
 			youtube: loading || !profile.social ? '' : profile.social.youtube,
 			instagram: loading || !profile.social ? '' : profile.social.instagram,
 		});
-		// prop to depend on is looading; when it loads useEffect should run
+		// prop to depend on is 'loading'; when it loads useEffect should run
 	}, [loading, getCurrentProfile]);
 
 	// destructure from formData
@@ -89,6 +89,7 @@ const EditProfile = ({
 						<option value='Junior Developer'>Junior Developer</option>
 						<option value='Senior Developer'>Senior Developer</option>
 						<option value='Manager'>Manager</option>
+						<option value='Director'>Director</option>
 						<option value='Student or Learning'>Student or Learning</option>
 						<option value='Instructor'>Instructor or Teacher</option>
 						<option value='Intern'>Intern</option>
