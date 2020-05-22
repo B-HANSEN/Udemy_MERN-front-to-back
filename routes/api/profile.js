@@ -4,8 +4,10 @@ const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
+
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route   GET api/profile/me   // based on user ID that is in the token
 // @desc    Get current user's profile
@@ -152,10 +154,11 @@ router.get('/user/:user_id', async (req, res) => {
 // @access  Private // i.e. access to the token
 router.delete('/', auth, async (req, res) => {
 	try {
-		// TODO: remove users posts
-
-		// remove profile & user
+		// remove user's posts
+		await Post.deleteMany({ user: req.user.id });
+		// remove profile
 		await Profile.findOneAndRemove({ user: req.user.id });
+		// remove account
 		await User.findOneAndRemove({ _id: req.user.id });
 
 		res.json({ msg: 'User deleted.' });
