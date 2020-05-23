@@ -322,13 +322,18 @@ router.get('/github/:username', async (req, res) => {
 		// username passed thru URL + max 5 pages and sort them,
 		// add clientID & client secret from config
 		const options = {
-			uri: `https://api.github.com/users/${
-				req.params.username
-			}/repos?per_page=5&sort=created:asc&client_id=${config.get(
-				'githubClientId'
-			)}&client_secret=${config.get('githubSecret')}`,
+			uri: encodeURI(
+				`https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
+			),
 			method: 'GET',
-			headers: { 'user-agent': 'node.js' },
+			headers: {
+				'user-agent': 'node.js',
+				Authorization: `token ${config.get('githubToken')}`,
+			},
+			// auth: {
+			// 	user: config.get('githubClientId'),
+			// 	pass: config.get('githubSecret'),
+			// },
 		};
 		request(options, (error, response, body) => {
 			if (error) console.error(error);

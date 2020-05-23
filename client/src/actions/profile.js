@@ -15,6 +15,13 @@ export const getCurrentProfile = () => async dispatch => {
 	try {
 		const res = await axios.get('/api/profile/me');
 
+		// We found a security flaw in this app.
+		// If a guest user browses a dev profile and then registers,
+		// the browsed users profile data is still in the "profile" state
+		// and the newly registered user then sees and can edit the users info
+		dispatch({
+			type: CLEAR_PROFILE,
+		});
 		dispatch({
 			type: GET_PROFILE,
 			// this route returns all profile data
@@ -76,6 +83,7 @@ export const getProfileById = userId => async dispatch => {
 
 // get Github repos
 export const getGithubRepos = username => async dispatch => {
+	console.log(username);
 	try {
 		const res = await axios.get(`/api/github/${username}`);
 		dispatch({
