@@ -7,11 +7,7 @@ import Spinner from '../layout/Spinner';
 const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 	useEffect(() => {
 		getGithubRepos(username);
-	}, [getGithubRepos]);
-
-	console.log('username', username);
-	console.log('repos', repos);
-
+	}, [getGithubRepos, username]);
 	return (
 		<div className='profile-github'>
 			<h2 className='text-primary my-1'>Github Repos</h2>
@@ -20,7 +16,7 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 				<Spinner />
 			) : (
 				repos.map(repo => (
-					<div key={repos._id} className='repo bg-white p-1 my-1'>
+					<div key={repos.id} className='repo bg-white p-1 my-1'>
 						<div>
 							<h4>
 								<a
@@ -37,12 +33,17 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 						<div>
 							<ul>
 								<li className='badge badge-primary'>
+									{' '}
 									Stars: {repo.stargazers_count}
 								</li>
 								<li className='badge badge-dark'>
+									{' '}
 									Watchers: {repo.watchers_count}
 								</li>
-								<li className='badge badge-light'>Forks: {repo.forks_count}</li>
+								<li className='badge badge-light'>
+									{' '}
+									Forks: {repo.forks_count}
+								</li>
 							</ul>
 						</div>
 					</div>
