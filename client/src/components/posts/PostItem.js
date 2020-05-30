@@ -25,6 +25,8 @@ const PostItem = ({
 			<p className='post-date'>
 				Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
 			</p>
+
+			{/* render actions only in post component, but not in comment component; reuse other code for both components */}
 			{showActions && (
 				<>
 					<button
