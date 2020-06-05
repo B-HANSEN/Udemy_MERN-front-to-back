@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+const normalize = require('normalize-url');
 
 const User = require('../../models/User');
 
@@ -41,11 +42,14 @@ router.post(
 			}
 
 			// get users gravatar
-			const avatar = gravatar.url(email, {
-				s: '200', // size
-				r: 'pg', // rating
-				d: 'mm', // default img, a user icon
-			});
+			const avatar = normalize(
+				gravatar.url(email, {
+					s: '200', // size
+					r: 'pg', // rating
+					d: 'mm', // default img, a user icon
+				}),
+				{ forceHttps: true }
+			);
 
 			// create instance of user
 			user = new User({
